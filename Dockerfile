@@ -1,7 +1,7 @@
 FROM php:8.3-cli
 
-RUN apt-get update && apt-get install -y --no-install-recommends git unzip libsqlite3-dev libzip-dev \
-    && docker-php-ext-install pdo_sqlite zip \
+RUN apt-get update && apt-get install -y --no-install-recommends git unzip libsqlite3-dev libzip-dev libicu-dev libxml2-dev libcurl4-openssl-dev libonig-dev \
+    && docker-php-ext-install bcmath curl intl mbstring opcache pdo_sqlite xml zip \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
