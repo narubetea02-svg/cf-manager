@@ -11,9 +11,10 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 WORKDIR /app
 COPY composer.json composer.lock package.json package-lock.json* ./
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts
 RUN npm install
 COPY . .
+RUN composer dump-autoload --no-dev --optimize
 RUN mkdir -p database storage/framework/cache storage/framework/sessions storage/framework/views \
     && touch database/database.sqlite \
     && npm run build
