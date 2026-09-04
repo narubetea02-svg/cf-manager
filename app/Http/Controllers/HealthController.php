@@ -43,7 +43,7 @@ class HealthController extends Controller
     private function checkGrabber(): string
     {
         $output = [];
-        exec('systemctl is-active tiktok-grabber.service 2>/dev/null', $output, $code);
-        return ($code === 0 && ($output[0] ?? '') === 'active') ? 'running' : 'stopped';
+        exec("ps ax | grep 'scripts/tiktok-grabber.cjs' | grep -v grep", $output, $code);
+        return $code === 0 ? 'running' : 'stopped';
     }
 }

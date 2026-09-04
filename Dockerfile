@@ -13,12 +13,13 @@ WORKDIR /app
 COPY composer.json composer.lock package.json package-lock.json* ./
 RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts
 RUN npm install
+RUN npx playwright install --with-deps chromium
 COPY . .
-RUN mkdir -p database storage/framework/cache storage/framework/sessions storage/framework/views \
+RUN mkdir -p database storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
     && touch database/database.sqlite \
     && composer dump-autoload --no-dev --optimize \
     && npm run build
 
 ENV APP_ENV=production APP_DEBUG=false DB_CONNECTION=sqlite DB_DATABASE=/app/database/database.sqlite
 EXPOSE 10000
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+CMD ["sh", "-c", "php artisan migrate --force && (API_URL=${API_URL:-https://cf-manager-ykl2.onrender.com} node scripts/tiktok-grabber.cjs > storage/logs/tiktok-grabber.log 2>&1 &) && exec php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
