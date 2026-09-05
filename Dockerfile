@@ -18,6 +18,7 @@ RUN npx playwright install --with-deps chromium
 COPY . .
 RUN mkdir -p database storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
     && touch database/database.sqlite \
+    && chmod -R ug+rwX storage database \
     && composer dump-autoload --no-dev --optimize \
     && npm run build
 
