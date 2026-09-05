@@ -194,29 +194,7 @@
 
 @section('content')
 <div class="cfx">
-    <div class="cfx-ribbon">
-        <span>{{ $announcement['title'] }}</span>
-        <a href="{{ $announcement['link'] }}" class="text-decoration-none">{{ $announcement['cta'] }} -></a>
-    </div>
-
-    <div class="cfx-top-split">
-        <div class="cfx-promo-carousel">
-            <div class="cfx-promo">
-                <div class="cfx-promo-glow"></div>
-                <div class="cfx-promo-ic"><x-ui-icon name="promo" size="24" /></div>
-                <div class="cfx-promo-body">
-                    <div class="cfx-promo-eyebrow">CF MANAGER</div>
-                    <div class="cfx-promo-title">{{ $announcement['subtitle'] }}</div>
-                    <div class="cfx-promo-sub">สรุปยอดขายรวมจากร้านในระบบของคุณแบบใกล้เคียงต้นฉบับมากขึ้น</div>
-                </div>
-                <div class="cfx-promo-actions">
-                    <a href="{{ url('/live') }}" class="cfx-cta">ไปหน้าไลฟ์</a>
-                    <button class="cfx-promo-hide" type="button" onclick="window.location.href='{{ url('/reports') }}'">อัปเดตอัตโนมัติ</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="cfx-welcome">
+    <div class="cfx-welcome">
             <div class="cfx-wc-av">N</div>
             <div>
                 <div class="cfx-wc-hi">ยินดีต้อนรับกลับมา</div>
@@ -229,7 +207,6 @@
                 <a class="{{ $range === '30d' ? 'on' : '' }}" href="{{ url('/dashboard?range=30d') }}">30 วัน</a>
                 <a href="{{ url('/reports') }}">กำหนดเอง</a>
             </div>
-        </div>
     </div>
 
     <div class="cfx-arrange-bar">
