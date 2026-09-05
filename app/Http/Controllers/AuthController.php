@@ -35,7 +35,7 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect('/dashboard');
     }
 
