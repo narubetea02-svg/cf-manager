@@ -36,6 +36,12 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user, true);
+        $request->session()->put('authenticated_user', [
+            'facebook_id' => $user->facebook_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+        ]);
         return redirect('/dashboard');
     }
 
@@ -95,6 +101,12 @@ class AuthController extends Controller
 
             Auth::login($user, true);
             $request->session()->regenerate();
+            $request->session()->put('authenticated_user', [
+                'facebook_id' => $user->facebook_id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'avatar' => $user->avatar,
+            ]);
             return redirect('/dashboard');
 
         } catch (\Exception $e) {
@@ -102,8 +114,9 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->session()->forget('authenticated_user');
         Auth::logout();
         return redirect('/');
     }
