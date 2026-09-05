@@ -43,7 +43,10 @@ Route::get('/webhooks/facebook/messenger', [FacebookWebhookController::class, 'v
 Route::post('/webhooks/facebook/messenger', [FacebookWebhookController::class, 'handle']);
 
 // Protected
-Route::middleware(['auth'])->group(function () {
+Route::middleware([
+    \App\Http\Middleware\RestoreAuthenticatedUser::class,
+    'auth',
+])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::redirect('/index', '/dashboard');
     Route::redirect('/stats', '/dashboard');

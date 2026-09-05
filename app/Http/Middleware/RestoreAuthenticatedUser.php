@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Models\User;
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+
+class RestoreAuthenticatedUser
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (! Auth::check()) {
+            $snapshot = $request->session()->get('authenticated_user');
+
+            if (! is_array($snapshot)) {
+                $cookieSnapshot = $request->cookie('cf_manager_auth');
+                $snapshot = is_string($cookieSnapshot) ? json_decode($cookieSnapshot, true) : null;
+            }
+
+            if (is_array($snapshot) && ! empty($snapshot['facebook_id'])) {
+                $user = User::updateOrCreate(
+                    ['facebook_id' => $snapshot['facebook_id']],
+                    [
+                        'name' => $snapshot['name'] ?? 'Facebook User',
+                        'email' => $snapshot['email'] ?? ('fb_'.$snapshot['facebook_id'].'@cfshop.local'),
+                        'avatar' => $snapshot['avatar'] ?? '',
+                    ],
+                );
+
+                Auth::login($user, true);
+                $request->session()->put('authenticated_user', [
+                    'facebook_id' => $user->facebook_id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'avatar' => $user->avatar,
+                ]);
+            }
+        }
+
+        return $next($request);
+    }
+}

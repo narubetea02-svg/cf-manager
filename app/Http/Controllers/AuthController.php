@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -36,6 +37,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user, true);
+        $this->rememberAuthenticatedUser($request, $user);
         return redirect('/dashboard');
     }
 
@@ -95,6 +97,7 @@ class AuthController extends Controller
 
             Auth::login($user, true);
             $request->session()->regenerate();
+            $this->rememberAuthenticatedUser($request, $user);
             return redirect('/dashboard');
 
         } catch (\Exception $e) {
@@ -102,9 +105,24 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $request->session()->forget('authenticated_user');
+        Cookie::queue(Cookie::forget('cf_manager_auth'));
         Auth::logout();
         return redirect('/');
+    }
+
+    private function rememberAuthenticatedUser(Request $request, User $user): void
+    {
+        $snapshot = [
+            'facebook_id' => $user->facebook_id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+        ];
+
+        $request->session()->put('authenticated_user', $snapshot);
+        Cookie::queue(cookie('cf_manager_auth', json_encode($snapshot), 60 * 24 * 30, '/', null, true, true, false, 'lax'));
     }
 }

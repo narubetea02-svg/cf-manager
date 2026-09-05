@@ -26,8 +26,19 @@ class PackingController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         $shops = Shop::whereIn('id', $shopIds)->get();
-        $carriers = ['kerry', 'flash', 'jnt', 'thailandpost', 'dhl', 'nim_express'];
-        return view('packing.index', compact('orders', 'shops', 'carriers'));
+        $carriers = collect([
+            ['key' => 'kerry', 'name' => 'Kerry', 'short_name' => 'kerry'],
+            ['key' => 'flash', 'name' => 'Flash Express', 'short_name' => 'flash'],
+            ['key' => 'jnt', 'name' => 'J&T Express', 'short_name' => 'jnt'],
+            ['key' => 'thailandpost', 'name' => 'ไปรษณีย์ไทย', 'short_name' => 'thailandpost'],
+            ['key' => 'dhl', 'name' => 'DHL', 'short_name' => 'dhl'],
+            ['key' => 'nim_express', 'name' => 'Nim Express', 'short_name' => 'nim_express'],
+        ])->map(fn (array $carrier) => (object) array_merge($carrier, [
+            'connection_status' => 'not_configured',
+        ]));
+        $highlightOrder = null;
+
+        return view('packing.index', compact('orders', 'shops', 'carriers', 'highlightOrder'));
     }
 
     public function updateTracking(Request $request, $id)
