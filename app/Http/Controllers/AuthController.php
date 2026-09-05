@@ -93,7 +93,8 @@ class AuthController extends Controller
                 'password' => Hash::make(Str::random(16)),
             ]);
 
-            Auth::login($user);
+            Auth::login($user, true);
+            $request->session()->regenerate();
             return redirect('/dashboard');
 
         } catch (\Exception $e) {
