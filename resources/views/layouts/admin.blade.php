@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/metismenu@3.0.7/dist/metisMenu.min.css" rel="stylesheet" />
-    <link href="{{ asset('/assets/css/app.min.css') }}" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/css/app.min.css" rel="stylesheet" />
     <style>
         :root {
             --cf-shell-bg: #f3f5fb;
