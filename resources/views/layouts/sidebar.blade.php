@@ -139,6 +139,12 @@
                         <span class="sidebar-label">บรอดแคสต์</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('/my-videos') }}" class="waves-effect {{ request()->is('my-videos*') ? 'is-current' : '' }}">
+                        <span class="sidebar-icon">@include('components.sidebar-icon', ['name' => 'post'])</span>
+                        <span class="sidebar-label">วิดีโอของฉัน</span>
+                    </a>
+                </li>
 
                 <li class="{{ $isProductGroup ? 'mm-active' : '' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect {{ $isProductGroup ? 'is-current' : '' }}" data-sidebar-parent="products">
@@ -184,6 +190,18 @@
                     <a href="{{ url('/packing') }}" class="waves-effect {{ request()->is('packing*') && !request()->has('type') ? 'is-current' : '' }}">
                         <span class="sidebar-icon">@include('components.sidebar-icon', ['name' => 'packing'])</span>
                         <span class="sidebar-label">แพ็คของ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://cf-shops.com/remote-support" target="_blank" rel="noopener" class="waves-effect">
+                        <span class="sidebar-icon">@include('components.sidebar-icon', ['name' => 'help'])</span>
+                        <span class="sidebar-label">รีโมทช่วยเหลือ (AnyDesk)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://lin.ee/xfZH0TL" target="_blank" rel="noopener" class="waves-effect">
+                        <span class="sidebar-icon">@include('components.sidebar-icon', ['name' => 'help'])</span>
+                        <span class="sidebar-label">แจ้งปัญหา/ติดต่อแอดมิน</span>
                     </a>
                 </li>
                 <li>
