@@ -13,8 +13,17 @@
         })();
     </script>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/metismenu@3.0.7/dist/metisMenu.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/libs/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/libs/select2/select2.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/css/icons.min.css" rel="stylesheet" />
+    <link href="https://cf-shops.com/assets/css/app.min.css?v=1.4.50" rel="stylesheet" />
     <link href="{{ asset('/assets/css/app.min.css') }}" rel="stylesheet" />
     <style>
         :root {
@@ -654,6 +663,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/metismenu@3.0.7/dist/metisMenu.min.js"></script>
+    <script src="https://cf-shops.com/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="https://cf-shops.com/assets/libs/node-waves/node-waves.min.js"></script>
+    <script src="https://cf-shops.com/assets/js/pages/sidebar.init.js?v=1.4.50"></script>
     <script src="{{ asset('/assets/js/app.min.js') }}"></script>
     @stack('scripts')
 </body>
