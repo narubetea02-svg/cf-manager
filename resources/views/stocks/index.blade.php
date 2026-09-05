@@ -1,16 +1,6 @@
 @extends('layouts.admin')
-@section('title', 'สต็อก')
+@section('title', 'คลังสินค้า')
 @section('content')
-<div class="row"><div class="col-12"><div class="page-title-box"><h4 class="page-title">📦 สต็อกสินค้า</h4></div></div></div>
-<div class="card"><div class="card-body">
-<div class="table-responsive"><table class="table table-hover">
-<thead><tr><th>สินค้า</th><th>ราคา</th><th>สต็อก</th><th>สถานะ</th></tr></thead>
-<tbody>@forelse($products as $p)
-<tr><td>{{ $p->name }}</td><td>{{ number_format($p->price,2) }} ฿</td>
-<td><span class="badge bg-{{ $p->stock > 10 ? 'success' : ($p->stock > 0 ? 'warning' : 'danger') }}">{{ $p->stock }}</span></td>
-<td>@if($p->is_active)<span class="badge bg-success">พร้อมขาย</span>@else<span class="badge bg-secondary">ปิด</span>@endif</td></tr>
-@empty<tr><td colspan="4" class="text-center text-muted">ไม่มีสินค้า</td></tr>@endforelse
-</tbody></table></div>
-{{ $products->links() }}
-</div></div>
+<div class="page-title-box d-flex flex-wrap align-items-center justify-content-between gap-3"><div><h4 class="page-title mb-1">คลังสินค้า</h4><div class="text-muted small">เมนูหลัก / สินค้า / คลังสินค้า</div></div><div class="d-flex flex-wrap gap-2"><a href="{{ url('/products/import?mode=stocks') }}" class="btn btn-light border">Import</a><a href="{{ url('/products') }}" class="btn btn-primary">เพิ่มข้อมูลสินค้า</a></div></div>
+<div class="card"><div class="card-body"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3"><div><h5 class="mb-1">คลังสินค้า</h5><div class="small text-muted">จัดการจำนวนคงเหลือของสินค้าและตัวเลือกสินค้า</div></div><a href="{{ url('/products') }}" class="btn btn-light border">บันทึกข้อมูล</a></div><div class="table-responsive"><table class="table table-hover align-middle"><thead class="table-light"><tr><th>สินค้า</th><th>ราคา</th><th>สต็อก</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody>@forelse($products as $product)<tr><td><div class="fw-semibold">{{ $product->name }}</div><div class="small text-muted">{{ $product->code }}</div></td><td>{{ number_format($product->price,2) }} ฿</td><td><span class="badge bg-{{ $product->stock > 10 ? 'success' : ($product->stock > 0 ? 'warning' : 'danger') }}">{{ $product->stock }}</span></td><td>@if($product->is_active)<span class="badge bg-success">พร้อมขาย</span>@else<span class="badge bg-secondary">ปิด</span>@endif</td><td><a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-light border">แก้ไข</a></td></tr>@empty<tr><td colspan="5" class="text-center text-muted py-5">ไม่มีสินค้าในคลัง<div class="mt-3"><a href="{{ url('/products/create') }}" class="btn btn-primary">เพิ่มข้อมูลสินค้า</a></div></td></tr>@endforelse</tbody></table></div>{{ $products->links() }}</div></div>
 @endsection
