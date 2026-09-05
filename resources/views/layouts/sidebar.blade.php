@@ -23,6 +23,6 @@
     {!! $item('/userAccess','การเข้าถึง','✓',request()->is('userAccess*')) !!}
     {!! $item('/utility-templates','เทมเพลต','▤',request()->is('utility-templates*')) !!}
     <li class="menu-title">ช่วยเหลือ</li>
-    <li><a href="https://tutorials.cf-shops.com/" target="_blank" rel="noopener">?</span><span class="sidebar-label">วิธีใช้งาน</span></a></li>
+    <li><a href="https://tutorials.cf-shops.com/" target="_blank" rel="noopener">?<span class="sidebar-label">วิธีใช้งาน</span></a></li>
 </ul></aside>
 <script>document.addEventListener('click',function(e){var link=e.target.closest('[data-submenu]');if(!link)return;e.preventDefault();link.classList.toggle('open');var menu=document.querySelector('[data-menu="'+link.dataset.submenu+'"]');if(menu)menu.classList.toggle('show')});</script>
