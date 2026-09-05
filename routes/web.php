@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::redirect('/credit', '/credits');
     Route::get('/credits', [CreditsController::class, 'index'])->name('credits.index');
     Route::get('/settings', [ShopController::class, 'settings'])->name('settings.index');
-    Route::redirect('/shops', '/settings')->name('shops.index');
+    Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
     Route::get('/team', [TeamController::class, 'index'])->name('team.index');
     Route::get('/integrations', [IntegrationsController::class, 'index'])->name('integrations.index');
     Route::view('/help', 'help.index')->name('help.index');
@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/post', [BroadcastController::class, 'index']);
     Route::get('/chatOrders', [ChatController::class, 'index']);
     Route::get('/new_chat', [ChatController::class, 'index']);
+    Route::view('/my-videos', 'my-videos.index')->name('my-videos.index');
     Route::redirect('/deposit', '/orders?type=hold');
     Route::redirect('/reportOrderDetails', '/reports');
     Route::redirect('/reportOrderShipping', '/reports?type=shipping');
