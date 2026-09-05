@@ -15,6 +15,11 @@ class RestoreAuthenticatedUser
         if (! Auth::check()) {
             $snapshot = $request->session()->get('authenticated_user');
 
+            if (! is_array($snapshot)) {
+                $cookieSnapshot = $request->cookie('cf_manager_auth');
+                $snapshot = is_string($cookieSnapshot) ? json_decode($cookieSnapshot, true) : null;
+            }
+
             if (is_array($snapshot) && ! empty($snapshot['facebook_id'])) {
                 $user = User::updateOrCreate(
                     ['facebook_id' => $snapshot['facebook_id']],
@@ -26,6 +31,12 @@ class RestoreAuthenticatedUser
                 );
 
                 Auth::login($user, true);
+                $request->session()->put('authenticated_user', [
+                    'facebook_id' => $user->facebook_id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'avatar' => $user->avatar,
+                ]);
             }
         }
 
